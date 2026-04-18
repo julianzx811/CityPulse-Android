@@ -32,6 +32,12 @@ val WeatherRain      = listOf(Indigo900, Indigo800, Indigo600)
 val WeatherStorm     = listOf(Grey900, Grey700, Color(0xFF455A64))
 val WeatherSnow      = listOf(Color(0xFF263238), Grey700, Grey300)
 
+//weather colors
+val SunShadow       = Color(0xFFFF8C00)
+val RainCloudMain   = Color(0xFF90A4AE)
+val StormCloudShadow = Color(0xFF455A64)
+val StormCloudMain  = Color(0xFF607D8B)
+
 // UI semantic
 val NightBackground  = Color(0xFF1A1A2E)
 val DayBackground    = Color(0xFFFFF9C4)

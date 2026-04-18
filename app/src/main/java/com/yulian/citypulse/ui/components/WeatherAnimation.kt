@@ -8,6 +8,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import com.yulian.citypulse.ui.theme.*
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -45,7 +46,7 @@ fun SunAnimation(modifier: Modifier = Modifier) {
         // Halo exterior
         drawCircle(
             brush = Brush.radialGradient(
-                colors = listOf(Color(0xFFFFD700).copy(alpha = 0.3f), Color.Transparent),
+                colors = listOf(SunMid.copy(alpha = 0.3f), Color.Transparent),
                 center = Offset(cx, cy),
                 radius = radius * 1.8f
             ),
@@ -59,7 +60,7 @@ fun SunAnimation(modifier: Modifier = Modifier) {
             val startR = radius * 1.2f
             val endR = radius * 1.6f
             drawLine(
-                color = Color(0xFFFFD700).copy(alpha = 0.8f),
+                color = SunMid.copy(alpha = 0.8f),
                 start = Offset(cx + startR * cos(angle).toFloat(), cy + startR * sin(angle).toFloat()),
                 end = Offset(cx + endR * cos(angle).toFloat(), cy + endR * sin(angle).toFloat()),
                 strokeWidth = 6f
@@ -68,7 +69,7 @@ fun SunAnimation(modifier: Modifier = Modifier) {
 
         // Sombra 3D
         drawCircle(
-            color = Color(0xFFFF8C00).copy(alpha = 0.4f),
+            color = SunShadow.copy(alpha = 0.4f),
             radius = radius,
             center = Offset(cx + radius * 0.15f, cy + radius * 0.15f)
         )
@@ -76,7 +77,7 @@ fun SunAnimation(modifier: Modifier = Modifier) {
         // Sol principal
         drawCircle(
             brush = Brush.radialGradient(
-                colors = listOf(Color(0xFFFFF176), Color(0xFFFFD700), Color(0xFFFFA000)),
+                colors = listOf(SunCenter, SunMid, SunOuter),
                 center = Offset(cx - radius * 0.2f, cy - radius * 0.2f),
                 radius = radius
             ),
@@ -103,7 +104,7 @@ fun CloudAnimation(modifier: Modifier = Modifier) {
     )
 
     Canvas(modifier = modifier) {
-        drawCloud(offsetX, Color(0xFFB0BEC5), Color(0xFFECEFF1))
+        drawCloud(offsetX, Grey300, Grey200)
     }
 }
 
@@ -139,7 +140,7 @@ fun RainAnimation(modifier: Modifier = Modifier) {
     )
 
     Canvas(modifier = modifier) {
-        drawCloud(0f, Color(0xFF78909C), Color(0xFF90A4AE))
+        drawCloud(0f, Grey400, RainCloudMain)
 
         // Gotas
         val dropPositions = listOf(0.2f, 0.4f, 0.6f, 0.8f, 0.3f, 0.5f, 0.7f)
@@ -147,7 +148,7 @@ fun RainAnimation(modifier: Modifier = Modifier) {
             val y = (rainOffset + i * 0.15f) % 1f
             val dropY = size.height * 0.55f + y * size.height * 0.4f
             drawLine(
-                color = Color(0xFF64B5F6).copy(alpha = 1f - y),
+                color = RainDropColor.copy(alpha = 1f - y),
                 start = Offset(size.width * x, dropY),
                 end = Offset(size.width * x - 4f, dropY + 20f),
                 strokeWidth = 3f
@@ -166,7 +167,7 @@ fun ThunderstormAnimation(modifier: Modifier = Modifier) {
     )
 
     Canvas(modifier = modifier) {
-        drawCloud(0f, Color(0xFF455A64), Color(0xFF607D8B))
+        drawCloud(0f, StormCloudShadow, StormCloudMain)
 
         // Rayo
         val cx = size.width / 2
@@ -181,7 +182,7 @@ fun ThunderstormAnimation(modifier: Modifier = Modifier) {
             lineTo(cx + 5f, cy + 58f)
             close()
         }
-        drawPath(path, Color(0xFFFFEB3B).copy(alpha = alpha))
+        drawPath(path, LightningColor.copy(alpha = alpha))
     }
 }
 
@@ -195,7 +196,7 @@ fun SnowAnimation(modifier: Modifier = Modifier) {
     )
 
     Canvas(modifier = modifier) {
-        drawCloud(0f, Color(0xFFB0BEC5), Color(0xFFECEFF1))
+        drawCloud(0f, Grey300, Grey200)
 
         val flakePositions = listOf(0.2f, 0.35f, 0.5f, 0.65f, 0.8f)
         flakePositions.forEachIndexed { i, x ->
